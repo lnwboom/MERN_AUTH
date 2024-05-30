@@ -3,11 +3,13 @@ const router = express.Router();
 const cors = require('cors');
 const {test, registerUser,loginUser,getProfile} = require('../controllers/authController');
 
+const allowedOrigins = ['http://localhost:5173', 'https://teal-kangaroo-de17ba.netlify.app'];
+
 //middleware
 router.use(
     cors({
         credentials: true,
-        origin: 'http://localhost:5173'
+        origin: allowedOrigins
     })
 )
 

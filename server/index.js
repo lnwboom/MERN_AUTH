@@ -12,15 +12,8 @@ mongoose.connect(process.env.MONGO_URL)
 .then(() =>  console.log('Database Connected'))
 .catch((err) => console.log('Database Error: ' , err))
 
-// Replace with your Netlify deployment URL
-const allowedOrigins = ['https://teal-kangaroo-de17ba.netlify.app'];
 
-const corsOptions = {
-  origin: allowedOrigins,
-  credentials: true,
-};
 
-app.use(cors(corsOptions));
 //middleware configuration
 app.use(express.json())
 app.use(cookieParser())
