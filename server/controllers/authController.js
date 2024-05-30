@@ -53,7 +53,6 @@ function sendResponse(res, user, token) {
     httpOnly: true,
     sameSite: 'none', // Set the SameSite attribute
     secure: true,
-    partitioned: true, // Set the Secure attribute when using SameSite=None
   });
   res.json(user);
 } 
