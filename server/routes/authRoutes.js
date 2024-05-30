@@ -3,7 +3,7 @@ const router = express.Router();
 const cors = require('cors');
 const {test, registerUser,loginUser,getProfile} = require('../controllers/authController');
 
-const allowedOrigins = ['http://localhost:5173', 'https://dashing-granita-b22861.netlify.app','https://mern-auth-rust.vercel.app/'];
+const allowedOrigins = ['http://localhost:5173', 'https://nimble-pika-048f39.netlify.app','https://mern-auth-rust.vercel.app/'];
 
 //middleware
 router.use(
