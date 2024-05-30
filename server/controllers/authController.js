@@ -49,7 +49,11 @@ const registerUser = async (req, res) => {
 };
 
 function sendResponse(res, user, token) {
-  res.cookie('token', token, { httpOnly: true });
+  res.cookie('token', token, {
+    httpOnly: true,
+    sameSite: 'none', // Set the SameSite attribute
+    secure: true, // Set the Secure attribute when using SameSite=None
+  });
   res.json(user);
 } 
 
