@@ -48,6 +48,11 @@ const registerUser = async (req, res) => {
   }
 };
 
+function sendResponse(res, user, token) {
+  res.cookie('token', token, { httpOnly: true });
+  res.json(user);
+} 
+
 //Login Endpoint
 const loginUser = async (req, res) => {
   try {
@@ -65,9 +70,16 @@ const loginUser = async (req, res) => {
 
     const match = await comparePassword(password, user.password);
     if (match) {
-      jwt.sign({email: user.email, id : user._id, name: user.name},process.env.JWT_SECRET,{}, (err,token) => {
-        res.cookie('token', token).json(user)
-      } )
+      jwt.sign({ email: user.email, id: user._id, name: user.name }, process.env.JWT_SECRET, {}, (err, token) => {
+        if (err) {
+          // Handle the error
+          console.error('Error signing JWT:', err);
+          return res.status(500).json({ error: 'Internal Server Error' });
+        }
+      
+        // Call the sendResponse function to set the cookie and send the response
+        sendResponse(res, user, token);
+      });
     }
     if (!match) {
       res.json({
@@ -90,8 +102,6 @@ const getProfile = (req, res) => {
   }else{
     res.json(null)
   }
-
-
 }
 
 module.exports = {
