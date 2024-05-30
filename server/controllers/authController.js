@@ -52,7 +52,8 @@ function sendResponse(res, user, token) {
   res.cookie('token', token, {
     httpOnly: true,
     sameSite: 'none', // Set the SameSite attribute
-    secure: true,
+    secure: true, // Set the Secure attribute when using SameSite=None
+    partitioned: true, // Set the Partitioned attribute
   });
   res.json(user);
 } 
