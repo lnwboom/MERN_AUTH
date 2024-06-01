@@ -19,8 +19,12 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: false })) 
 
+app.use((req, res, next) => {
+    console.log('Cookies:', req.cookies);
+    next();
+  });
 
-
+  
 app.use("/", require('./routes/authRoutes'))
 
 const port =  process.env.PORT || 8000;

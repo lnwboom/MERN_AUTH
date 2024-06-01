@@ -98,20 +98,32 @@ const loginUser = async (req, res) => {
 
 
 const getProfile = (req, res) => {
-  const {token} = req.cookies
-  if(token) {
-    jwt.verify(token, process.env.JWT_SECRET ,{},(err, user) => {
-      if(err) throw err
-      res.json(user)
-    })
-  }else{
-    res.json(null)
+  const { token } = req.cookies;
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
+      if (err) {
+        // If the token is invalid or expired, clear the cookie
+        res.clearCookie('token');
+        res.json(null);
+      } else {
+        res.json(user);
+      }
+    });
+  } else {
+    res.json(null);
   }
-}
+};
+
+const logoutUser = (req, res) => {
+  // Clear the cookie by setting an expired date in the past
+  res.cookie('token', '', { expires: new Date(0) });
+  res.json({ message: 'Logout successful' });
+};
 
 module.exports = {
   test,
   registerUser,
   loginUser,
-  getProfile
+  getProfile,
+  logoutUser
 };
