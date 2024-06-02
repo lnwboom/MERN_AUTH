@@ -7,6 +7,10 @@ export function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const fetchUserData = () => {
     axios
       .get('/profile', { withCredentials: true })
       .then(({ data }) => {
@@ -16,7 +20,7 @@ export function UserContextProvider({ children }) {
         console.error('Error fetching user profile:', error);
         setUser(null);
       });
-  }, []);
+  };
 
   const resetUser = () => {
     setUser(null);

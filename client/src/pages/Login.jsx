@@ -3,6 +3,8 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from '../../context/userContext';
+import React from 'react';
 
 
 export default function Login() {
@@ -10,6 +12,7 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const { setUser } = React.useContext(UserContext);
   const navigate = useNavigate();
 
   const loginUser = async (e) => {
@@ -26,6 +29,8 @@ export default function Login() {
       } else {
         setData({});
         toast.success('Successfully Login. Welcome!!');
+        // Update the UserContext with the logged-in user data
+        setUser(data);
         navigate("/dashboard");
       }
     } catch (error) {

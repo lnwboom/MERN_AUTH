@@ -115,9 +115,16 @@ const getProfile = (req, res) => {
 };
 
 const logoutUser = (req, res) => {
-  // Clear the cookie by setting an expired date in the past
-  res.cookie('token', '', { expires: new Date(0) });
-  res.json({ message: 'Logout successful' });
+    // Clear the token cookie
+    res.clearCookie('token', {
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true,
+      partitioned: true,
+    });
+  
+    // Send a success response
+    res.json({ message: 'Logout successful' });
 };
 
 module.exports = {
