@@ -24,12 +24,26 @@ export default function Navbar() {
     }
   };
 
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+  
   return (
     <nav>
       <Link to="/">Home</Link>
       <div className="btnLR">
         {user ? (
-          <Link onClick={handleLogout}>Logout</Link>
+          <div className="dropdown">
+            <button onClick={toggleDropdown}>
+              {user.name} ▼
+            </button>
+            {dropdownOpen && (
+              <div className="dropdown-content">
+                <Link to="/dashboard">Dashboard</Link>
+                <Link onClick={handleLogout}>Logout</Link>
+              </div>
+            )}
+          </div>
         ) : (
           <>
             <Link to="/Register">Register</Link>

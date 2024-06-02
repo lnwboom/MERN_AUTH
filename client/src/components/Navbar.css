@@ -1,7 +1,7 @@
 /* Navbar.css */
 nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     background-color: #333;
     color: #fff;
@@ -26,4 +26,42 @@ nav {
   
   .btnLR {
     display: flex;
+  }
+
+  .dropdown {
+    float: right;
+    position: relative;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 2px solid;
+    border-radius: 8px;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 6px 10px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
   }
