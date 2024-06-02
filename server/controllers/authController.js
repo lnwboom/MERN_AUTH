@@ -75,16 +75,24 @@ const loginUser = async (req, res) => {
 
     const match = await comparePassword(password, user.password);
     if (match) {
-      jwt.sign({ email: user.email, id: user._id, name: user.name }, process.env.JWT_SECRET, {}, (err, token) => {
-        if (err) {
-          // Handle the error
-          console.error('Error signing JWT:', err);
-          return res.status(500).json({ error: 'Internal Server Error' });
+      // Set the token expiration time to 2 hours (7200 seconds)
+      const expiresIn = '2h';
+
+      jwt.sign(
+        { email: user.email, id: user._id, name: user.name },
+        process.env.JWT_SECRET,
+        { expiresIn },
+        (err, token) => {
+          if (err) {
+            // Handle the error
+            console.error('Error signing JWT:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+          }
+
+          // Call the sendResponse function to set the cookie and send the response
+          sendResponse(res, user, token);
         }
-      
-        // Call the sendResponse function to set the cookie and send the response
-        sendResponse(res, user, token);
-      });
+      );
     }
     if (!match) {
       res.json({
