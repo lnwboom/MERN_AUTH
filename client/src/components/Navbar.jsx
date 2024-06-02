@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { UserContext } from "../../context/userContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
@@ -9,6 +9,7 @@ import { toast } from "react-hot-toast";
 
 export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const navigate = useNavigate();
 
